@@ -41,6 +41,7 @@ jobs:
           tags: ghcr.io/bym0/appflowy:${{ steps.short_sha.outputs.short_sha }}
           platforms: linux/amd64
           context: .
+          file: Dockerfile
 
       - name: Build and push gotrue
         uses: docker/build-push-action@v4
@@ -50,3 +51,12 @@ jobs:
           platforms: linux/amd64
           context: .
           file: docker/gotrue.Dockerfile
+
+      - name: Build and push admin-frontend
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: ghcr.io/bym0/appflowy-adminfrontend:${{ steps.short_sha.outputs.short_sha }}
+          platforms: linux/amd64
+          context: .
+          file: admin_frontend/Dockerfile
