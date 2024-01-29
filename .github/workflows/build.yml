@@ -34,10 +34,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push Appflowy
         uses: docker/build-push-action@v4
         with:
           push: true
           tags: ghcr.io/bym0/appflowy:${{ steps.short_sha.outputs.short_sha }}
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           context: .
+
+      - name: Build and push gotrue
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: ghcr.io/bym0/appflowy-gotrue:${{ steps.short_sha.outputs.short_sha }}
+          platforms: linux/amd64
+          context: .
+          file: docker/gotrue.Dockerfile
